@@ -1,31 +1,59 @@
-# Nexus Console
+# Web Htop
 
-Production-ready Next.js App Router starter with TypeScript, Tailwind CSS v4, shadcn-style components, Radix primitives, next-themes, Lucide icons, CVA, and Framer Motion.
+Realtime htop-inspired system monitoring dashboard built with Next.js App Router, TypeScript, Tailwind CSS v4, and a small Node.js WebSocket metrics server.
 
-## Stack
+## Features
 
-- Next.js 16 App Router with `src/`
-- React 19 and TypeScript
-- Tailwind CSS v4 via `@tailwindcss/postcss`
-- ESLint 9 and Prettier
-- shadcn/ui-compatible component structure
-- Radix Dialog, Dropdown, Label, Separator, Tabs, Tooltip
-- `class-variance-authority`, `clsx`, `tailwind-merge`
-- `next-themes`, `lucide-react`, `framer-motion`
+- Live CPU usage with per-core bars
+- Live memory usage
+- Load average: 1m, 5m, 15m
+- Total process count
+- Realtime process table with PID, name, CPU, memory, and status
+- Search/filter process list
+- High CPU process highlighting
+- Connection status and auto-refresh indicator
+- Network RX/TX panel
+- Mock kill-process action over WebSocket
 
 ## Scripts
 
 ```bash
-npm run dev
+npm run dev       # Next.js app only
+npm run monitor   # WebSocket metrics server on ws://localhost:3001/metrics
+npm run dev:all   # Next.js + metrics server together
 npm run build
 npm run lint
 npm run format
 ```
 
-## Routes
+Open `http://localhost:3000`.
 
-- `/` dashboard overview
-- `/form` form and dialog example
-- `/data` table and empty-state example
+## Configuration
 
-Design tokens live in `src/app/globals.css`, shared helpers in `src/lib`, and reusable UI primitives in `src/components/ui`.
+The browser connects to `ws://localhost:3001/metrics` by default.
+
+Override it with:
+
+```bash
+NEXT_PUBLIC_METRICS_WS_URL=ws://localhost:3001/metrics
+METRICS_PORT=3001
+METRICS_INTERVAL_MS=1000
+ENABLE_REAL_KILL=true
+```
+
+`ENABLE_REAL_KILL` defaults to disabled. When set to `true`, the kill action sends `SIGTERM` to the selected PID. The server refuses invalid PIDs, PID `1`, its own process, its parent process, and a short list of protected system process names.
+
+## Structure
+
+```text
+server/metrics-server.mjs
+src/app/page.tsx
+src/components/cpu-bar.tsx
+src/components/memory-bar.tsx
+src/components/metric-card.tsx
+src/components/process-table.tsx
+src/components/web-htop-dashboard.tsx
+src/lib/ws.ts
+src/lib/utils.ts
+src/types/metrics.ts
+```
