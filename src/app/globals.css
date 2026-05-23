@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --background: #f7f8fb;
+  --foreground: #0b1120;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #0077ff;
+  --primary-foreground: #f8fbff;
+  --accent: #06b6d4;
+  --accent-foreground: #041116;
+  --muted: #e4e7ec;
+  --muted-foreground: #5f6b7a;
+  --success: #16a34a;
+  --success-foreground: #f0fdf4;
+  --warning: #f59e0b;
+  --warning-foreground: #1f1300;
+  --danger: #ef4444;
+  --danger-foreground: #fff1f2;
+  --border: #d8dee8;
+  --input: #eef2f7;
+  --ring: #38bdf8;
+  --radius: 0.625rem;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #07070a;
+  --foreground: #f4f4f5;
+  --card: #101014;
+  --card-foreground: #fafafa;
+  --popover: #111116;
+  --popover-foreground: #fafafa;
+  --primary: #1d8cff;
+  --primary-foreground: #f8fbff;
+  --accent: #22d3ee;
+  --accent-foreground: #031316;
+  --muted: #27272f;
+  --muted-foreground: #a1a1aa;
+  --success: #22c55e;
+  --success-foreground: #031a0b;
+  --warning: #fbbf24;
+  --warning-foreground: #211600;
+  --danger: #f43f5e;
+  --danger-foreground: #fff1f2;
+  --border: #24242c;
+  --input: #18181f;
+  --ring: #22d3ee;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent) 35%, transparent);
+}
+
+.cyber-grid {
+  background-image:
+    linear-gradient(
+      color-mix(in oklab, var(--primary) 14%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--accent) 10%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, black, transparent 75%);
+}
