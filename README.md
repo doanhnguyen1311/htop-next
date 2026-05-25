@@ -30,12 +30,12 @@ Open `http://localhost:3000`.
 
 ## Configuration
 
-The browser connects to `ws://localhost:3001/metrics` by default.
+The browser connects to `https://top.dn203.dpdns.org/metrics` by default. The app converts `https://` to `wss://` when opening the WebSocket connection.
 
 Override it with:
 
 ```bash
-NEXT_PUBLIC_METRICS_WS_URL=ws://localhost:3001/metrics
+NEXT_PUBLIC_METRICS_WS_URL=https://top.dn203.dpdns.org/metrics
 METRICS_PORT=3001
 METRICS_INTERVAL_MS=1000
 ENABLE_REAL_KILL=true

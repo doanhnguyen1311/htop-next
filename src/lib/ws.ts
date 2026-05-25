@@ -27,6 +27,20 @@ export type MetricsSocket = {
   killProcess: (pid: number) => void;
 };
 
+function toWebSocketUrl(url: string): string {
+  const parsedUrl = new URL(url);
+
+  if (parsedUrl.protocol === "https:") {
+    parsedUrl.protocol = "wss:";
+  }
+
+  if (parsedUrl.protocol === "http:") {
+    parsedUrl.protocol = "ws:";
+  }
+
+  return parsedUrl.toString();
+}
+
 export function createMetricsSocket({
   onMetrics,
   onStatus,
@@ -40,8 +54,10 @@ export function createMetricsSocket({
   onKillAck?: KillAckHandler;
   onInterval?: IntervalHandler;
 }): MetricsSocket {
-  const url =
-    process.env.NEXT_PUBLIC_METRICS_WS_URL ?? "ws://localhost:3001/metrics";
+  const url = toWebSocketUrl(
+    process.env.NEXT_PUBLIC_METRICS_WS_URL ??
+      "https://top.dn203.dpdns.org/metrics",
+  );
   const debugEnabled = process.env.NEXT_PUBLIC_METRICS_DEBUG === "true";
   let socket: WebSocket | null = null;
   let closed = false;
